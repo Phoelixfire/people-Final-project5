@@ -1,0 +1,315 @@
+//Felix Gonzales
+
+String names[]= { "Aries", "Cancer", "Draco", "Hercules", "Hydra", 
+  "Lyra", "Orion", "Pegasus", "Phoenix", "Taurus", "Virgo", 
+  "Serpens", "Pisces", "Octans"};      //name of constellations
+Constellation a, b, c, d, e, f, g, h, i, j, k, l, m, n;
+
+Button[] buttons;
+String buttonNames[]=  { "Add age", "Sort", "Thick last", "Tall last", "Reset", "Quit" };
+int numButtons=  buttonNames.length;
+
+float cb = 100, cg = 100;  //color blue & green 
+
+
+void setup() { 
+  size(750, 800);
+  println(height);
+  group();
+  makebuttons();
+}
+
+
+void draw() {
+  float xd;
+  float cc = .2;  //color change speed
+  background(70, cg, cb);
+  rectMode(CORNER);
+  noStroke();
+  fill(15, 149, 76);
+  rect(0, 600, width, 200);   //platform
+  if (cg >= 255 ) cg= 100;
+  if (cb >= 255 ) cb =100;
+  cb= cb + cc;
+  cg= cg + cc;
+  fill(255);
+ text("CST 112 Felix Gonzales", 600, 780);
+  buttons();
+
+  a.show(50, 600);
+  b.show(100, 600);
+  c.show(150, 600);
+  d.show(200, 600);
+  e.show(250, 600);
+  f.show(300, 600);
+  g.show(350, 600);
+  h.show(400, 600);
+  i.show(450, 600);
+  j.show(500, 600);
+  k.show(550, 600);
+  l.show(600, 600);
+  m.show(650, 600);
+  n.show(700, 600);
+}
+
+
+void texts() {
+  text( "r to reset, randomly.", 10, 12 );
+  text( "t to move tallest to end.", 10, 24 );
+  text( "f to move fattest to end.", 10, 36 );
+}
+
+void group() {
+  a = new Constellation(names[0]);
+  b = new Constellation(names[1]);
+  c = new Constellation(names[2]);
+  d = new Constellation(names[3]);
+  e = new Constellation(names[4]);
+  f = new Constellation(names[5]);
+  g = new Constellation(names[6]);
+  h = new Constellation(names[7]);
+  i = new Constellation(names[8]);
+  j = new Constellation(names[9]);
+  k = new Constellation(names[10]);
+  l = new Constellation(names[11]);
+  m = new Constellation(names[12]);
+  n = new Constellation(names[13]);
+}
+
+
+class Constellation {
+  float w, h;
+  float  r, g, b, hr, hg, hb;
+  String name="?";
+
+
+  Constellation (String names) {
+    r= random(255);
+    g= random(255);
+    b= random(255);
+    hr= random(255);
+    hg= random(255);
+    hb= random(255);
+    w=  random(20, 40);
+    h=  random(50, 150);
+    name = names;
+  }
+
+  void show( float x, float y) {
+    fill(r, g, b);
+    rectMode(CENTER);
+    ellipse( x, y-h/2, w, h );  //body
+    text ( name, x, y+20);
+    int feet, inches;
+    feet=  int( h / 12 );
+    inches=  int( h % 12 );
+    text ( feet+"' " + inches+"''", x, y+35);
+    float lb=  (h * w * w) / 500 ;
+    text ( int(lb())+"lb", x, y+50);
+    head( x, (y-h)-(h/3)/2, h/3 );
+  }
+  void head( float x, float hY, float hH ) {
+    rect( x, hY, hH, hH );  //head
+    fill( 255, 255, 255 );
+    ellipse( x, hY+6, w/4, h/10 );   //mouth
+    fill(0);
+    rect(x, hY -(hH/2), hH-(hH/3), 5);    //top hat
+    rectMode(CORNER);
+    rect(x-hH/4, hY -hH, hH-(hH/2), hH-hH/2);
+    fill(255);
+    ellipse( x-6, hY-6, 8, 12 );   //left eye
+    fill(0, 0, 255);
+    ellipse( x-6, hY-6, 4, 5 );
+    fill(255);
+    ellipse( x+6, hY-6, 8, 12 );   //right eye
+    fill(0, 0, 255);
+    ellipse( x+6, hY-6, 4, 5 );
+  }
+  float lb() {
+    return (h * w * w) / 500 ;
+  }
+}
+
+
+void tallest() {  //i did it this way as i understand it a bit better than the shorter way
+  Constellation tmp=  n;
+  if (a.h>b.h && a.h>c.h && a.h>d.h && a.h>e.h && a.h>f.h && a.h>g.h && a.h>h.h && a.h>i.h && a.h>j.h && a.h>k.h
+    && a.h>l.h && a.h>m.h && a.h>n.h) {
+    n=  a;
+    a= tmp;
+  } else if (b.h>c.h && b.h>d.h && b.h>e.h && b.h>f.h && b.h>g.h && b.h>h.h && b.h>i.h && b.h>j.h && b.h>k.h
+    && b.h>l.h && b.h>m.h && b.h>n.h) {
+    n=  b;
+    b= tmp;
+  } else if (c.h>d.h && c.h>e.h && c.h>f.h && c.h>g.h && c.h>h.h && c.h>i.h && c.h>j.h && c.h>k.h
+    && c.h>l.h && c.h>m.h && c.h>n.h) {
+    n=  c;
+    c= tmp;
+  } else if (d.h>e.h && d.h>f.h && d.h>g.h && d.h>h.h && d.h>i.h && d.h>j.h && d.h>k.h && d.h>l.h && d.h>m.h && d.h>n.h) {
+    n=  d;
+    d= tmp;
+  } else if (e.h>f.h && e.h>g.h && e.h>h.h && e.h>i.h && e.h>j.h && e.h>k.h && e.h>l.h && e.h>m.h && e.h>n.h) {
+    n=  e;
+    e= tmp;
+  } else if (f.h>g.h && f.h>h.h && f.h>i.h && f.h>j.h && f.h>k.h && f.h>l.h && f.h>m.h && f.h>n.h) {
+    n=  f;
+    f= tmp;
+  } else if (g.h>h.h && g.h>i.h && g.h>j.h && g.h>k.h && g.h>l.h && g.h>m.h && g.h>n.h) {
+    n=  g;
+    g= tmp;
+  } else if (h.h>i.h && h.h>j.h && h.h>k.h && h.h>l.h && h.h>m.h && h.h>n.h) {
+    n=  h;
+    h= tmp;
+  } else if (i.h>j.h && i.h>k.h && i.h>l.h && i.h>m.h && i.h>n.h) {
+    n=  i;
+    i= tmp;
+  } else if ( j.h>k.h && j.h>l.h && j.h>m.h && j.h>n.h) {
+    n=  j;
+    j= tmp;
+  } else if (k.h>l.h && k.h>m.h && k.h>n.h) {
+    n=  k;
+    k= tmp;
+  } else if (l.h>m.h && l.h>n.h) {
+    n=  l;
+    l= tmp;
+  } else if (m.h>n.h) {
+    d=  m;
+    m= tmp;
+  }
+}  
+
+
+void thickest() {
+  Constellation tmp=  n;
+  if (a.lb()>b.h && a.lb()>c.h && a.lb()>d.lb() && a.lb()>e.lb() && a.lb()>f.lb() && a.lb()>g.lb() && a.lb()>h.lb() && a.lb()>i.h && a.lb()>j.lb() && a.lb()>k.lb()
+    && a.lb()>l.lb() && a.lb()>m.lb() && a.lb()>n.lb()) {
+    n=  a;
+    a= tmp;
+  } else if (b.lb()>c.lb() && b.h>d.lb() && b.h>e.lb() && b.h>f.lb() && b.h>g.lb() && b.h>h.lb() && b.h>i.h && b.h>j.lb() && b.h>k.lb()
+    && b.h>l.lb() && b.h>m.lb() && b.h>n.lb()) {
+    n=  b;
+    b= tmp;
+  } else if (c.h>d.lb() && c.h>e.lb() && c.h>f.lb() && c.h>g.lb() && c.h>h.lb() && c.h>i.h && c.h>j.lb() && c.h>k.lb()
+    && c.h>l.lb() && c.h>m.lb() && c.h>n.lb()) {
+    n=  c;
+    c= tmp;
+  } else if (d.lb()>e.lb() && d.lb()>f.lb() && d.lb()>g.lb() && d.lb()>h.lb() && d.lb()>i.h && d.lb()>j.lb() && d.lb()>k.lb() && d.lb()>l.lb() && d.lb()>m.lb() && d.lb()>n.lb()) {
+    n=  d;
+    d= tmp;
+  } else if (e.lb()>f.lb() && e.lb()>g.lb() && e.lb()>h.lb() && e.lb()>i.h && e.lb()>j.lb() && e.lb()>k.lb() && e.lb()>l.lb() && e.lb()>m.lb() && e.lb()>n.lb()) {
+    n=  e;
+    e= tmp;
+  } else if (f.lb()>g.lb() && f.lb()>h.lb() && f.lb()>i.h && f.lb()>j.lb() && f.lb()>k.lb() && f.lb()>l.lb() && f.lb()>m.lb() && f.lb()>n.lb()) {
+    n=  f;
+    f= tmp;
+  } else if (g.lb()>h.lb() && g.lb()>i.h && g.lb()>j.lb() && g.lb()>k.lb() && g.lb()>l.lb() && g.lb()>m.lb() && g.lb()>n.lb()) {
+    n=  g;
+    g= tmp;
+  } else if (h.lb()>i.h && h.lb()>j.lb() && h.lb()>k.lb() && h.lb()>l.lb() && h.lb()>m.lb() && h.lb()>n.lb()) {
+    n=  h;
+    h= tmp;
+  } else if (i.h>j.lb() && i.h>k.lb() && i.h>l.lb() && i.h>m.lb() && i.h>n.lb()) {
+    n=  i;
+    i= tmp;
+  } else if ( j.lb()>k.lb() && j.lb()>l.lb() && j.lb()>m.lb() && j.lb()>n.lb()) {
+    n=  j;
+    j= tmp;
+  } else if (k.lb()>l.lb() && k.lb()>m.lb() && k.lb()>n.lb()) {
+    n=  k;
+    k= tmp;
+  } else if (l.lb()>m.lb() && l.lb()>n.lb()) {
+    n=  l;
+    l= tmp;
+  } else if (m.lb()>n.lb()) {
+    d=  m;
+    m= tmp;
+  }
+}   
+
+
+
+void buttons() {
+  for (int j=0; j<buttonNames.length; j++) {
+    buttons[j].show();
+  }
+}
+
+
+
+void mousePressed() {
+
+  if ( buttons[0].click(mouseX, mouseY) ) { 
+    
+    return;
+  }
+  if ( buttons[1].click(mouseX, mouseY) ) { 
+     
+    return;
+  }
+  if ( buttons[2].click(mouseX, mouseY) ) { 
+    thickest();  
+    return;
+  }
+  if ( buttons[3].click(mouseX, mouseY) ) { 
+    tallest();
+    ;
+    return;
+  }
+  if ( buttons[4].click(mouseX, mouseY) ) { 
+    group(); 
+    return;
+  }
+  if ( buttons[5].click(mouseX, mouseY) ) { 
+    exit(); 
+    return;
+  }
+}
+
+class Button {
+  float x, y;
+  float w=60, h=30;  //width & height of buttons
+  String name;
+  float r=random(255), g=random(255), b=random(255);  //colors of buttons
+ 
+  Button( float x, float y, String s ) {
+    this.x=x;
+    this.y=y;
+    this.name=  s;
+  }
+
+  void show() {
+    noStroke();
+    fill(r, g, b);
+    rect( x+40, y+15, w, h );
+    fill(0);
+    text( name, x+45, (y+h*2/3)+20 );
+  }
+  boolean click( float mX, float mY ) {
+    if (mX < x+40)   return false;
+    if (mX > x+w+40) return false;
+    if (mY < y+15)   return false;
+    if (mY > y+h+15) return false;
+    return true;
+  }
+}
+void makebuttons() {
+  buttons=  new Button[numButtons];
+  float x=50, y=700;
+  for (int j=0; j<numButtons; j++ ) {
+    buttons[j]=  new Button( x, y, buttonNames[j] );
+    x += 100;
+  }
+}
+
+
+
+
+
+
+
+void keyPressed() {
+  if (key == 'q') exit();
+  if (key == 'r') group();
+  if (key == 't') tallest();
+  if (key == 'f') thickest();
+}
